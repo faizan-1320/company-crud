@@ -4,9 +4,34 @@ import './index.css'
 import App from './App.jsx'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
+import { createBrowserRouter, RouterProvider } from 'react-router'
+import Company from './Company/Company.jsx'
+import CompanyForm from './companyForm/CompanyForm.jsx'
+import AdminLogin from './adminLogin/AdminLogin.jsx'
+
+let routes = [{
+  path:'/',
+  element:<App/>,
+  children:[
+    {
+      path:'/',
+      element:<AdminLogin/>
+    },
+    {
+      path:'/companies',
+      element:<Company/>
+    },
+    {
+      path:'/add-company',
+      element:<CompanyForm/>
+    }
+  ]
+}]
+
+const browserRouter = createBrowserRouter(routes);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={browserRouter}></RouterProvider>
   </StrictMode>,
 )
