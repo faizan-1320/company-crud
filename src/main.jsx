@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import Company from './Company/Company.jsx'
 import CompanyForm from './companyForm/CompanyForm.jsx'
 import AdminLogin from './adminLogin/AdminLogin.jsx'
+import Home from './home/Home.jsx'
 
 let routes = [{
   path:'/',
@@ -24,6 +25,9 @@ let routes = [{
     {
       path:'/add-company',
       element:<CompanyForm/>
+    },{
+      path:'/home',
+      element:<Home/>
     }
   ]
 }]
