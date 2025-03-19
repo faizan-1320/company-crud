@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Companycard({company}) {
+export default function Companycard({ company }) {
   return (
     <>
       <div className="card m-5" style={{ maxWidth: "540px" }}>
@@ -17,8 +17,12 @@ export default function Companycard({company}) {
                 <li className="list-group-item"><i>Registered Address:</i> <b>{company.cmpAddress}</b></li>
                 <li className="list-group-item"><i>Established:</i> <b>{company.cmpEstablished.toString()}</b></li>
                 <li className="list-group-item">
-                  <a href="#" className="card-link">Edit</a>
-                  <a href="#" className="card-link">Delete</a>
+                  <button className="btn btn-sm btn-outline-primary me-2">
+                    ✏️ Edit
+                  </button>
+                  <button className="btn btn-sm btn-outline-danger">
+                    🗑️ Delete
+                  </button>
                 </li>
               </ul>
             </div>

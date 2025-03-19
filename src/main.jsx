@@ -5,7 +5,7 @@ import App from './App.jsx'
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
 import { createBrowserRouter, RouterProvider } from 'react-router'
-import Company from './Company/Company.jsx'
+import Company from './company/Company.jsx'
 import CompanyForm from './companyForm/CompanyForm.jsx'
 import AdminLogin from './adminLogin/AdminLogin.jsx'
 import Home from './home/Home.jsx'

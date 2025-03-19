@@ -9,7 +9,8 @@ export const companyArr = [
     cmpRegisterNumber:1,
     cmpEstablished:new Date('01 Jan 2018'),
     cmpClassOfCompany:'Private',
-    cmpAddress:'Ahmedabad'
+    cmpAddress:'Ahmedabad',
+    isActive:true
   },
   {
     cmpId:2,
@@ -18,7 +19,8 @@ export const companyArr = [
     cmpRegisterNumber:1213,
     cmpEstablished:new Date('01 Jan 2010'),
     cmpClassOfCompany:'Private',
-    cmpAddress:'Mumbai'
+    cmpAddress:'Mumbai',
+    isActive:true
   },
   {
     cmpId:3,
@@ -27,7 +29,8 @@ export const companyArr = [
     cmpRegisterNumber:1123,
     cmpEstablished:new Date('01 Jan 1990'),
     cmpClassOfCompany:'Private',
-    cmpAddress:'Ahmedabad'
+    cmpAddress:'Ahmedabad',
+    isActive:true
   },
   {
     cmpId:4,
@@ -36,7 +39,8 @@ export const companyArr = [
     cmpRegisterNumber:1231,
     cmpEstablished:new Date('01 Jan 2001'),
     cmpClassOfCompany:'Private',
-    cmpAddress:'Delhi'
+    cmpAddress:'Delhi',
+    isActive:true
   },
   {
     cmpId:5,
@@ -45,7 +49,8 @@ export const companyArr = [
     cmpRegisterNumber:1423,
     cmpEstablished:new Date('01 Jan 1947'),
     cmpClassOfCompany:'Public',
-    cmpAddress:'Ahmedabad'
+    cmpAddress:'Ahmedabad',
+    isActive:true
   },
   {
     cmpId:6,
@@ -54,7 +59,8 @@ export const companyArr = [
     cmpRegisterNumber:4321,
     cmpEstablished:new Date('01 Jan 2005'),
     cmpClassOfCompany:'Private',
-    cmpAddress:'Noida'
+    cmpAddress:'Noida',
+    isActive:true
   },
   {
     cmpId:7,
@@ -63,7 +69,8 @@ export const companyArr = [
     cmpRegisterNumber:5243,
     cmpEstablished:new Date('01 Jan 2020'),
     cmpClassOfCompany:'Private',
-    cmpAddress:'Ahmedabad'
+    cmpAddress:'Ahmedabad',
+    isActive:true
   },
   {
     cmpId:8,
@@ -72,7 +79,8 @@ export const companyArr = [
     cmpRegisterNumber:9878,
     cmpEstablished:new Date('01 Jan 2021'),
     cmpClassOfCompany:'Private',
-    cmpAddress:'Pune'
+    cmpAddress:'Pune',
+    isActive:false
   }
 ]
 
