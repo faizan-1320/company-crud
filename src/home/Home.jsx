@@ -1,7 +1,17 @@
-import React from 'react'
-import { companyArr } from '../company/Company'
+import React, { useEffect, useState } from 'react'
+import { getCompany } from '../api/Api';
 
 export default function Home() {
+  const [companyArr,setCompanyArr] = useState([])
+  async function companyRes() {
+    const response = await getCompany();
+    setCompanyArr(response)
+  }
+
+  useEffect(()=>{
+    companyRes()
+  },[])
+
   const totalCompanies = companyArr.length
   const activeCompanies = companyArr.filter((c) => c.isActive).length
   const inactiveCompanies = totalCompanies - activeCompanies
