@@ -8,7 +8,7 @@ export default function CompanyForm() {
   const navigate = useNavigate();
   const findCompany = useLoaderData();
   const location = useLocation();
-  const {cmpId} = useParams();
+  const { cmpId } = useParams();
 
   const emptyCompany = {
     cmpId: cmpId,
@@ -21,15 +21,15 @@ export default function CompanyForm() {
     isActive: true
   }
 
-  function initialState(){
-    if (location.pathname.includes('edit-company') && findCompany!=null){
+  function initialState() {
+    if (location.pathname.includes('edit-company') && findCompany != null) {
       return findCompany
-    }else{
+    } else {
       return emptyCompany
     }
   }
 
-  const [company, setCompany] = useState(()=>initialState());
+  const [company, setCompany] = useState(() => initialState());
 
   const getDetailsCmp = (e) => {
     setCompany({ ...company, [e.target.id]: e.target.value })
@@ -41,7 +41,7 @@ export default function CompanyForm() {
 
   async function companyAdd(e) {
     e.preventDefault();
-    const updatedCompany = { ...company, isActive: true } 
+    const updatedCompany = { ...company, isActive: true }
     const response = await addCompany(updatedCompany)
     if (response) {
       Swal.fire({
@@ -63,9 +63,23 @@ export default function CompanyForm() {
 
   async function companyEdit(e) {
     e.preventDefault()
-    const response = await editCompany(cmpId,company)
-    console.log("response edit -------------------------->",response);
-    navigate('/companies')
+    const response = await editCompany(cmpId, company)
+    if (response) {
+      Swal.fire({
+        title: 'Success!',
+        text: 'Company update successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then(() => {
+        navigate('/companies')
+      })
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: response?.message || 'Failed to update company. Please try again.',
+        icon: 'error',
+      })
+    }
   }
 
   return (
@@ -76,7 +90,7 @@ export default function CompanyForm() {
 
       <h4 className="text-center mb-4">Company Form</h4>
 
-      <form onSubmit={location.pathname.includes('edit-company')?companyEdit:companyAdd}>
+      <form onSubmit={location.pathname.includes('edit-company') ? companyEdit : companyAdd}>
 
         <div className="mb-3">
           <label htmlFor="cmpName" className="form-label fw-bold">
@@ -183,7 +197,7 @@ export default function CompanyForm() {
 
         <div className="d-flex justify-content-between">
           <button type="submit" className="btn btn-success px-4">
-            {location.pathname.includes('edit-company')?"Update":'Add'}
+            {location.pathname.includes('edit-company') ? "Update" : 'Add'}
           </button>
           <button type="reset" className="btn btn-secondary px-4" onClick={handleReset}>
             Reset

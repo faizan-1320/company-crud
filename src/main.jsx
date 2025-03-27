@@ -35,7 +35,6 @@ let routes = [{
       path:'/edit-company/:cmpId',
       element:<CompanyForm/>,
       loader:async({params})=>{
-        console.log("params ------------------->",params.cmpId);
         return await companyGetById(params.cmpId)
       }
     }

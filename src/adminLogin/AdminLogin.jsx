@@ -18,7 +18,6 @@ export default function AdminLogin() {
       alert("you are logged in successfully")
     }else{
       alert("Incorrect Email or password")
-      console.log("Incorrect Email or password");
     }
   }
   return (
