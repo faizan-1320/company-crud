@@ -18,6 +18,7 @@ export default function CompanyForm() {
     cmpEstablished: '',
     cmpClassOfCompany: 'Public',
     cmpAddress: '',
+    isActive: true
   }
 
   function initialState(){
@@ -40,7 +41,8 @@ export default function CompanyForm() {
 
   async function companyAdd(e) {
     e.preventDefault();
-    const response = await addCompany(company)
+    const updatedCompany = { ...company, isActive: true } 
+    const response = await addCompany(updatedCompany)
     if (response) {
       Swal.fire({
         title: 'Success!',
