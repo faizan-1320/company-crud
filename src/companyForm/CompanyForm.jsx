@@ -1,37 +1,69 @@
 import React, { useState } from 'react'
+import Swal from 'sweetalert2'
+import { addCompany, editCompany } from '../api/Api'
+import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router'
 
 export default function CompanyForm() {
 
-  const [company, setCompany] = useState({
-    cmpId: '',
+  const navigate = useNavigate();
+  const findCompany = useLoaderData();
+  const location = useLocation();
+  const {cmpId} = useParams();
+
+  const emptyCompany = {
+    cmpId: cmpId,
     cmpName: '',
     cmpImg: '',
     cmpRegisterNumber: '',
     cmpEstablished: '',
     cmpClassOfCompany: 'Public',
     cmpAddress: '',
-  })
+  }
+
+  function initialState(){
+    if (location.pathname.includes('edit-company') && findCompany!=null){
+      return findCompany
+    }else{
+      return emptyCompany
+    }
+  }
+
+  const [company, setCompany] = useState(()=>initialState());
 
   const getDetailsCmp = (e) => {
     setCompany({ ...company, [e.target.id]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Company Data Submitted:', company)
-    alert('Company details submitted successfully!')
+  const handleReset = () => {
+    setCompany(emptyCompany)
   }
 
-  const handleReset = () => {
-    setCompany({
-      cmpId: '',
-      cmpName: '',
-      cmpImg: '',
-      cmpRegisterNumber: '',
-      cmpEstablished: '',
-      cmpClassOfCompany: 'Public',
-      cmpAddress: '',
-    })
+  async function companyAdd(e) {
+    e.preventDefault();
+    const response = await addCompany(company)
+    if (response) {
+      Swal.fire({
+        title: 'Success!',
+        text: 'Company added successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then(() => {
+        navigate('/companies')
+      })
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: response?.message || 'Failed to add company. Please try again.',
+        icon: 'error',
+      })
+    }
+  }
+
+  async function companyEdit(e) {
+    e.preventDefault()
+    const response = await editCompany(cmpId,company)
+    console.log("response edit -------------------------->",response);
+    navigate('/companies')
   }
 
   return (
@@ -42,7 +74,7 @@ export default function CompanyForm() {
 
       <h4 className="text-center mb-4">Company Form</h4>
 
-      <form onSubmit={handleSubmit} onReset={handleReset}>
+      <form onSubmit={location.pathname.includes('edit-company')?companyEdit:companyAdd}>
 
         <div className="mb-3">
           <label htmlFor="cmpName" className="form-label fw-bold">
@@ -75,6 +107,31 @@ export default function CompanyForm() {
             required
           />
         </div>
+
+        <div className="mb-3">
+          <label htmlFor="cmpImg" className="form-label fw-bold">
+            Image URL
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="cmpImg"
+            name="cmpImg"
+            value={company.cmpImg}
+            onChange={getDetailsCmp}
+            placeholder="Select image"
+            required
+          />
+        </div>
+        {company.cmpImg && (
+          <div className="mt-3">
+            <img
+              src={company.cmpImg}
+              alt="Company"
+              width="100"
+            />
+          </div>
+        )}
 
         <div className="mb-3">
           <label htmlFor="cmpEstablished" className="form-label fw-bold">
@@ -124,9 +181,9 @@ export default function CompanyForm() {
 
         <div className="d-flex justify-content-between">
           <button type="submit" className="btn btn-success px-4">
-            Submit
+            {location.pathname.includes('edit-company')?"Update":'Add'}
           </button>
-          <button type="reset" className="btn btn-secondary px-4">
+          <button type="reset" className="btn btn-secondary px-4" onClick={handleReset}>
             Reset
           </button>
         </div>

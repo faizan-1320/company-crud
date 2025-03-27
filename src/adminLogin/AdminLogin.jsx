@@ -1,6 +1,26 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useCookies } from 'react-cookie'
+import { adminLoginData } from '../api/testAdmin'
+import { useNavigate } from 'react-router'
 
 export default function AdminLogin() {
+
+  const [cookies,setCookie,removeCookie] = useCookies();
+  const email = useRef();
+  const password = useRef();
+  const navigate = useNavigate();
+
+  const handleLogin = (e) =>{
+    e.preventDefault()
+    if (adminLoginData.email == email.current.value && adminLoginData.password == password.current.value){
+      setCookie('admin',adminLoginData.email)
+      navigate('/home')
+      alert("you are logged in successfully")
+    }else{
+      alert("Incorrect Email or password")
+      console.log("Incorrect Email or password");
+    }
+  }
   return (
     <div
       className="d-flex justify-content-center align-items-center min-vh-100 bg-light"
@@ -16,7 +36,7 @@ export default function AdminLogin() {
         <h4 className="text-center text-info mb-4 fw-bold">Admin Login</h4>
 
         {/* Login Form */}
-        <form>
+        <form onSubmit={handleLogin}>
           {/* Email Input */}
           <div className="mb-3">
             <label htmlFor="cmpEmail" className="form-label fw-semibold">
@@ -27,6 +47,7 @@ export default function AdminLogin() {
               className="form-control"
               id="cmpEmail"
               placeholder="Enter your email"
+              ref={email}
             />
             <div id="emailHelp" className="form-text text-muted">
               We'll never share your email with anyone else.
@@ -43,6 +64,7 @@ export default function AdminLogin() {
               className="form-control"
               id="cmpPassword"
               placeholder="Enter your password"
+              ref={password}
             />
           </div>
 

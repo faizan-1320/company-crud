@@ -1,7 +1,13 @@
 import React from 'react'
+import { useCookies } from 'react-cookie'
 import { Link } from 'react-router'
 
 export default function Navbar() {
+  const [cookies, , removeCookie] = useCookies()
+  const handleLogout = () =>{
+    removeCookie('admin')
+    alert('Logout Sucessfully')
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
       <div className="container-fluid">
@@ -29,22 +35,15 @@ export default function Navbar() {
                 Home
               </Link>
             </li>
-
-            <li className="nav-item">
+            {cookies.admin != undefined && <li className="nav-item">
               <Link className="nav-link" to="/add-company">
                 Add Company
               </Link>
-            </li>
+            </li>}
 
             <li className="nav-item">
               <Link className="nav-link" to="/companies">
                 Show Companies
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Login
               </Link>
             </li>
           </ul>
@@ -59,6 +58,18 @@ export default function Navbar() {
             <button className="btn btn-outline-success" type="submit">
               Search
             </button>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              {cookies.admin == undefined ? (<>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">
+                    Login
+                  </Link>
+                </li></>) : (<><li className="nav-item">
+                  <button className="nav-link" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li></>)}
+            </ul>
           </form>
         </div>
       </div>
