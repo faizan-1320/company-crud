@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import Swal from 'sweetalert2'
 import { addCompany, editCompany } from '../api/Api'
 import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router'
+import { Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function CompanyForm() {
 
@@ -196,12 +199,8 @@ export default function CompanyForm() {
         </div>
 
         <div className="d-flex justify-content-between">
-          <button type="submit" className="btn btn-success px-4">
-            {location.pathname.includes('edit-company') ? "Update" : 'Add'}
-          </button>
-          <button type="reset" className="btn btn-secondary px-4" onClick={handleReset}>
-            Reset
-          </button>
+          <Button type="submit" variant="contained">{location.pathname.includes('edit-company') ? "Update" :  <><AddIcon/> Add</> }</Button>
+          <Button type="reset" variant="contained" onClick={handleReset}>Reset</Button>
         </div>
       </form>
     </div>

@@ -10,6 +10,7 @@ import CompanyForm from './companyForm/CompanyForm.jsx'
 import AdminLogin from './adminLogin/AdminLogin.jsx'
 import Home from './home/Home.jsx'
 import { companyGetById } from './api/Api.jsx'
+import { GuestGuard, RouteGurd } from './routegurad/RouteGurad.jsx'
 
 let routes = [{
   path:'/',
@@ -17,7 +18,9 @@ let routes = [{
   children:[
     {
       path:'/',
-      element:<AdminLogin/>
+      element:<GuestGuard>
+      <AdminLogin />
+    </GuestGuard>
     },
     {
       path:'/companies',
@@ -25,7 +28,7 @@ let routes = [{
     },
     {
       path:'/add-company',
-      element:<CompanyForm/>
+      element:<RouteGurd><CompanyForm/></RouteGurd> 
     },
     {
       path:'/home',
@@ -33,7 +36,7 @@ let routes = [{
     },
     {
       path:'/edit-company/:cmpId',
-      element:<CompanyForm/>,
+      element:<RouteGurd><CompanyForm/></RouteGurd>,
       loader:async({params})=>{
         return await companyGetById(params.cmpId)
       }

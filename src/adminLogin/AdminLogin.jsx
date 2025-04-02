@@ -2,6 +2,9 @@ import React, { useRef } from 'react'
 import { useCookies } from 'react-cookie'
 import { adminLoginData } from '../api/testAdmin'
 import { useNavigate } from 'react-router'
+import { Button } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Login';
+import Swal from 'sweetalert2'
 
 export default function AdminLogin() {
 
@@ -10,16 +13,34 @@ export default function AdminLogin() {
   const password = useRef();
   const navigate = useNavigate();
 
-  const handleLogin = (e) =>{
-    e.preventDefault()
-    if (adminLoginData.email == email.current.value && adminLoginData.password == password.current.value){
-      setCookie('admin',adminLoginData.email)
-      navigate('/home')
-      alert("you are logged in successfully")
-    }else{
-      alert("Incorrect Email or password")
+  const handleLogin = (e) => {
+    e.preventDefault();
+  
+    const inputEmail = email.current.value.trim();
+    const inputPassword = password.current.value.trim();
+  
+    const { email: adminEmail, password: adminPassword } = adminLoginData;
+  
+    if (adminEmail === inputEmail && adminPassword === inputPassword) {
+      Swal.fire({
+        title: 'Success',
+        text: 'You are logged in successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then(() => {
+        setCookie('admin', adminEmail);
+        navigate('/home');
+      });
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Incorrect Email or Password',
+        icon: 'error',
+        confirmButtonText: 'Try Again',
+      });
     }
-  }
+  };
+  
   return (
     <div
       className="d-flex justify-content-center align-items-center min-vh-100 bg-light"
@@ -39,7 +60,7 @@ export default function AdminLogin() {
           {/* Email Input */}
           <div className="mb-3">
             <label htmlFor="cmpEmail" className="form-label fw-semibold">
-              📧 Email Address
+              Email Address
             </label>
             <input
               type="email"
@@ -56,7 +77,7 @@ export default function AdminLogin() {
           {/* Password Input */}
           <div className="mb-3">
             <label htmlFor="cmpPassword" className="form-label fw-semibold">
-              🔒 Password
+              Password
             </label>
             <input
               type="password"
@@ -69,15 +90,8 @@ export default function AdminLogin() {
 
           {/* Button Group */}
           <div className="d-flex justify-content-between mt-4">
-            <button type="submit" className="btn btn-info w-48 fw-bold">
-              🚀 Login
-            </button>
-            <button
-              type="reset"
-              className="btn btn-outline-secondary w-48 fw-bold"
-            >
-              🔄 Reset
-            </button>
+            <Button type='submit' variant="contained"><LoginIcon/>Login</Button>
+            <Button type='reset' variant="contained">Reset</Button>
           </div>
         </form>
       </div>
