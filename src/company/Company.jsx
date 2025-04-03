@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Companycard from '../companycard/Companycard';
 import { deleteCompany, getCompany } from '../api/Api';
 import Swal from 'sweetalert2'
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Company() {
   const [companyArr, setCompanyArr] = useState([]);
@@ -97,24 +98,36 @@ export default function Company() {
 
         <div className="col-md-6">
           <label className="form-label d-none d-md-block">&nbsp;</label>
-          <input
-            className="form-control"
-            type="search"
-            placeholder="Search..."
-            aria-label="Search"
-            ref={search}
-            onKeyUp={searchCompany}
-          />
+
+          <div className="input-group">
+            <input
+              className="form-control"
+              type="search"
+              placeholder="Search..."
+              aria-label="Search"
+              ref={search}
+              onKeyUp={searchCompany}
+            />
+            <span className="input-group-text">
+              <SearchIcon />
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Company Cards Grid */}
       <div className="row g-4">
-        {companyArr.map((company, index) => (
-          <div key={'card' + index} className="col-12 col-sm-6 col-md-4">
-            <Companycard company={company} companyDelete={companyDelete} />
+        {companyArr.length > 0 ? (
+          companyArr.map((company, index) => (
+            <div key={'card' + index} className="col-12 col-sm-6 col-md-4">
+              <Companycard company={company} companyDelete={companyDelete} />
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-danger w-100">
+            <h4>No companies found.</h4>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
